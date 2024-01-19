@@ -2,6 +2,8 @@
 // Written by Amarnath S, Bengaluru, India, November 2020
 // Please report issues to amarnaths.0005@gmail.com
 // Updated December 2022
+// Further updated January 2024.
+// TODO: To fix issues in Assamese, Bengali and Malayalam caret ^ handling
 
 (function () {
   "option strict";
@@ -95,7 +97,7 @@
     doubleDanda = devanagariDoubleDanda;
 
     sampleGenericPassage =
-      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo(';
+      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya \n tatO&rghyE \n pitRu pitRUNaaM';
 
     language = "Kannada";
 
@@ -651,17 +653,26 @@
         }
       }
       if (consonants.has(updatedPart[1]) && consonants.has(updatedPart[2])) {
-        if (updatedPart[3] === "a") {
+        if (updatedPart[updatedPart.length - 1] === "a") {
+          let result1 = "";
+          for (let ii = 1; ii < updatedPart.length - 2; ++ii) {
+            result1 += consonants.get(updatedPart[ii]) + viraama;
+          }
           result +=
-            consonants.get(updatedPart[1]) +
-            viraama +
-            consonants.get(updatedPart[2]);
+            result1 + consonants.get(updatedPart[updatedPart.length - 2]);
         } else {
-          result +=
-            consonants.get(updatedPart[1]) +
-            viraama +
-            consonants.get(updatedPart[2]) +
-            kaagunita.get(updatedPart[3]);
+          let result1 = "";
+          for (let ii = 1; ii < updatedPart.length - 1; ++ii) {
+            let let1 = consonants.get(updatedPart[ii]);
+            if (ii === updatedPart.length - 2) {
+              result1 += let1;
+            } else {
+              result1 += let1 + viraama;
+            }
+          }
+
+          result1 += kaagunita.get(updatedPart[updatedPart.length - 1]);
+          result += result1;
         }
       }
     } else {
@@ -719,6 +730,8 @@
     updatedPart = updatedPart.replace(regex28, "z");
     updatedPart = updatedPart.replace(regex29, "\xdc");
     updatedPart = updatedPart.replace(regex30, "x");
+
+    //console.log("Length of updated part ", updatedPart.length);
 
     if (updatedPart.length === 1) {
       result += handlePartOfLength1(
