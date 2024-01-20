@@ -23,6 +23,7 @@ function setupBengaliMaps() {
   bengaliVowels.set("u", "\u0989");
   bengaliVowels.set("U", "\u098A");
   bengaliVowels.set("Ru", "\u098B");
+  bengaliVowels.set("\xd0", "\u09E0"); // RU
   bengaliVowels.set("e", "\u098F");
   bengaliVowels.set("E", "\u098F");
   bengaliVowels.set("\xd2", "\u0990"); // ai
