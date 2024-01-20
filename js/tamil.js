@@ -20,6 +20,7 @@ function setupTamilMaps() {
   tamilVowels.set("u", "\u0B89");
   tamilVowels.set("U", "\u0B8A");
   tamilVowels.set("Ru", "\u0B8A");
+  tamilVowels.set("\xd0", "\u0B8A"); // RU
   tamilVowels.set("e", "\u0B8E");
   tamilVowels.set("E", "\u0B8F");
   tamilVowels.set("\xd2", "\u0B90"); // ai
