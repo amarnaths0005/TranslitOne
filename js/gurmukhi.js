@@ -22,6 +22,7 @@ function setupGurmukhiMaps() {
   gurmukhiVowels.set("u", "\u0A09");
   gurmukhiVowels.set("U", "\u0A0A");
   gurmukhiVowels.set("Ru", "\u0A0A");
+  gurmukhiVowels.set("\xd0", "\u0A0A"); // RU
   gurmukhiVowels.set("e", "\u0A0F");
   gurmukhiVowels.set("E", "\u0A0F");
   gurmukhiVowels.set("\xd2", "\u0A10"); // ai
