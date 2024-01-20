@@ -20,6 +20,7 @@ function setupKannadaMaps() {
   kannadaVowels.set("u", "\u0C89");
   kannadaVowels.set("U", "\u0C8A");
   kannadaVowels.set("Ru", "\u0C8B");
+  kannadaVowels.set("\xd0", "\u0CE0"); // RU
   kannadaVowels.set("e", "\u0C8E");
   kannadaVowels.set("E", "\u0C8F");
   kannadaVowels.set("\xd2", "\u0C90"); // ai - using non-printable ASCII characters here
