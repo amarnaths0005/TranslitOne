@@ -20,6 +20,7 @@ function setupGujaratiMaps() {
   gujaratiVowels.set("u", "\u0A89");
   gujaratiVowels.set("U", "\u0A8A");
   gujaratiVowels.set("Ru", "\u0A8B");
+  gujaratiVowels.set("\xd0", "\u0AE0"); // RU
   gujaratiVowels.set("e", "\u0A8D"); // Chandra e
   gujaratiVowels.set("E", "\u0A8F");
   gujaratiVowels.set("\xd2", "\u0A90"); // ai
