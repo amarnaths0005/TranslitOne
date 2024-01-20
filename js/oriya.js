@@ -20,6 +20,7 @@ function setupOdiaMaps() {
   odiaVowels.set("u", "\u0B09");
   odiaVowels.set("U", "\u0B0A");
   odiaVowels.set("Ru", "\u0B0B");
+  odiaVowels.set("\xd0", "\u0B60"); // RU
   odiaVowels.set("e", "\u0B0F");
   odiaVowels.set("E", "\u0B0F");
   odiaVowels.set("\xd2", "\u0B10"); // ai
