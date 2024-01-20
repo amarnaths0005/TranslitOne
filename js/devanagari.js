@@ -20,6 +20,7 @@ function setupDevanagariMaps() {
   devanagariVowels.set("u", "\u0909");
   devanagariVowels.set("U", "\u090A");
   devanagariVowels.set("Ru", "\u090B");
+  devanagariVowels.set("\xd0", "\u0960"); // RU
   devanagariVowels.set("e", "\u090F");
   devanagariVowels.set("E", "\u090F");
   devanagariVowels.set("\xd2", "\u0910"); // ai
