@@ -97,7 +97,7 @@
     doubleDanda = devanagariDoubleDanda;
 
     sampleGenericPassage =
-      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya \n tatO&rghyE \n pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n \n ka kaa ki kee ku koo kRu kRU klRu ke kE kai ko kO kou kaM kam kaH \n \n ma maa mi mee mu moo mRu mRU mlRu me mE mai mo mO mou maM mam maH';
+      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya \n tatO&rghyE \n pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n \n ka kaa ki kee ku koo kRu kRU klRu ke kE kai ko kO kou kaM kam kaH \n \n ma maa mi mee mu moo mRu mRU mlRu me mE mai mo mO mou maM mam maH \n \n a aa i ee u oo Ru RU e E ai o O ou aM am aH';
 
     language = "Kannada";
 
@@ -425,7 +425,7 @@
 
   // Function to handle updated part of Length 2, like "ta", "da", "ru", "Ba"
   function handlePartOfLength2(updatedPart, isFirstPart, result) {
-    // console.log("Coming here Part 2", updatedPart, isFirstPart);
+    //console.log("Coming here Part 2", updatedPart, isFirstPart);
 
     if (language === "Malayalam") {
       if (updatedPart[1] === "^") {
