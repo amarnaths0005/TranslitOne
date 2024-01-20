@@ -20,6 +20,7 @@ function setupTeluguMaps() {
   teluguVowels.set("u", "\u0C09");
   teluguVowels.set("U", "\u0C0A");
   teluguVowels.set("Ru", "\u0C0B");
+  teluguVowels.set("\xd0", "\u0C60"); // RU
   teluguVowels.set("e", "\u0C0E");
   teluguVowels.set("E", "\u0C0F");
   teluguVowels.set("\xd2", "\u0C10"); // ai
