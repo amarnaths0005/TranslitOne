@@ -26,6 +26,7 @@ function setupMalayalamMaps() {
   malayalamVowels.set("u", "\u0D09");
   malayalamVowels.set("U", "\u0D0A");
   malayalamVowels.set("Ru", "\u0D0B");
+  malayalamVowels.set("\xd0", "\u0D60"); // RU
   malayalamVowels.set("e", "\u0D0E");
   malayalamVowels.set("E", "\u0D0F");
   malayalamVowels.set("\xd2", "\u0D10"); // ai
