@@ -100,9 +100,11 @@
     doubleDanda = devanagariDoubleDanda;
 
     sampleGenericPassage =
-      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya tatO&rghyE pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n a aa i ee u oo Ru RU lRu e E ai o O ou aM am aH \n ka kaa ki kee ku koo kRu kRU klRu klRU ke kE kai ko kO kou kaM kam kaH \n ma maa mi mee mu moo mRu mRU mlRu mlRU me mE mai mo mO mou maM mam maH \n vikramaarkasiMhaasanakathaa vikramaar^kasiMhaahasanakathaa  vikramaarkasim^haasanakatha';
+      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya tatO&rghyE pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n a aa i ee u oo Ru RU lRu e E ai o O ou aM am aH \n ka kaa ki kee ku koo kRu kRU klRu klRU ke kE kai ko kO kou kaM kam kaH \n ma maa mi mee mu moo mRu mRU mlRu mlRU me mE mai mo mO mou maM mam maH \n vikramaarkasiMhaasanakathaa vikramaar^kasiMhaasanakathaa  vikramaarkasim^haasanakathaa';
 
     //sampleGenericPassage = "r^ga";
+
+    //sampleGenericPassage = "yArghya  r^ga";
 
     language = "Kannada";
 
@@ -502,7 +504,7 @@
     } else if (updatedPart[0] === "|" && updatedPart[1] === "|") {
       result += doubleDanda;
     } else if (vowels.has(updatedPart[0])) {
-      console.log("Should not come here Part 2");
+      //console.log("Should not come here Part 2");
     } else if (updatedPart[0] === "\xdc") {
       result += chandraBindu;
       if (vowels.has(updatedPart[1])) {
@@ -681,16 +683,25 @@
         }
       }
     } else {
-      for (let i = 0; i < updatedPart.length - 2; ++i) {
-        let str;
-        if (updatedPart[i] === "\u005E") {
-          // Checking with ^
-          str = zwj + viraama;
-        } else {
-          str = consonants.get(updatedPart[i]);
-        }
+      //console.log("Length is ", updatedPart.length);
 
-        result += str;
+      if (updatedPart.includes("\u005E")) {
+        // String contains ^
+        for (let i = 0; i < updatedPart.length - 2; ++i) {
+          let str;
+          if (updatedPart[i] === "\u005E") {
+            // Checking for ^
+            str = zwj + viraama;
+          } else {
+            str = consonants.get(updatedPart[i]);
+          }
+          result += str;
+        }
+      } else {
+        // String does not contain ^
+        for (let i = 0; i < updatedPart.length - 2; ++i) {
+          result += consonants.get(updatedPart[i]) + viraama;
+        }
       }
 
       if (updatedPart[updatedPart.length - 1] === "a") {
