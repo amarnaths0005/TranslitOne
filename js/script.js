@@ -100,7 +100,7 @@
     doubleDanda = devanagariDoubleDanda;
 
     sampleGenericPassage =
-      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya tatO&rghyE pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n a aa i ee u oo Ru RU lRu e E ai o O ou aM am aH \n ka kaa ki kee ku koo kRu kRU klRu ke kE kai ko kO kou kaM kam kaH \n ma maa mi mee mu moo mRu mRU mlRu me mE mai mo mO mou maM mam maH \n vikramaarkasiMhaasanakathaa vikramaar^kasiMhaahasanakathaa  vikramaarkasim^haasanakatha';
+      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya tatO&rghyE pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n a aa i ee u oo Ru RU lRu e E ai o O ou aM am aH \n ka kaa ki kee ku koo kRu kRU klRu klRU ke kE kai ko kO kou kaM kam kaH \n ma maa mi mee mu moo mRu mRU mlRu mlRU me mE mai mo mO mou maM mam maH \n vikramaarkasiMhaasanakathaa vikramaar^kasiMhaahasanakathaa  vikramaarkasim^haasanakatha';
 
     //sampleGenericPassage = "r^ga";
 
@@ -681,52 +681,25 @@
         }
       }
     } else {
-      //console.log("Cominggggg");
-      //console.log("Lengths ", updatedPart, updatedPart.length);
-
-      //let newUpdatedPart = updatedPart.replace(/[^]/g, zwj);
-      //let newUpdatedPart = updatedPart.replace(/[^a-zA-Z0-9]/g, zwj);
-      //console.log("New Updated ", newUpdatedPart);
-      //updatedPart = newUpdatedPart;
-      //console.log("Updated " + updatedPart);
-
-      /*
-      console.log(consonants.get("r"));
-      console.log(consonants.get("r") + viraama);
-      console.log(consonants.get("k"));
-
-
-      result = consonants.get("r") + zwj + viraama + consonants.get("k");
-      console.log("Result issss ", result); */
-
       for (let i = 0; i < updatedPart.length - 2; ++i) {
-        //console.log("Result1 ", result, i);
         let str;
-        //console.log("Upddd ", updatedPart[i]);
         if (updatedPart[i] === "\u005E") {
           // Checking with ^
-          //console.log("zwj cpoming");
           str = zwj + viraama;
-          //console.log("zwj");
         } else {
-          //console.log("Else ", i);
           str = consonants.get(updatedPart[i]);
-          //console.log("Strrrr ", str);
         }
-        //console.log("Str ", str);
+
         result += str;
-        //console.log("For result is ", result);
       }
-      //console.log("Res = ", result);
+
       if (updatedPart[updatedPart.length - 1] === "a") {
-        //console.log("Cominggaaaaa");
         result += consonants.get(updatedPart[updatedPart.length - 2]);
       } else {
         result +=
           consonants.get(updatedPart[updatedPart.length - 2]) +
           kaagunita.get(updatedPart[updatedPart.length - 1]);
       }
-      //console.log("Final result is ", result);
     }
     return result;
   }
