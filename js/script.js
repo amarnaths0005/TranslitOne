@@ -4,6 +4,7 @@
 // Updated December 2022
 // Further updated January 2024.
 // Included Zero width joiner with ^ character.
+// Included Zero width non joiner with ^^ characters. 31 Jan 2024
 // TODO: To fix issues in Assamese, Bengali and Malayalam caret ^ handling
 
 (function () {
@@ -82,7 +83,9 @@
   const regex30 = /rx/g;
   const regex31 = /~n/g; // For Gurmukhi Addak
 
+  let caret = "\u005E";
   const zwj = "\u200D"; // zero width joiner -> https://en.wikipedia.org/wiki/Zero-width_joiner
+  const zwnj = "\u200C"; // zero width non joiner
 
   window.onload = init;
 
@@ -100,11 +103,11 @@
     doubleDanda = devanagariDoubleDanda;
 
     sampleGenericPassage =
-      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya tatO&rghyE pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n a aa i ee u oo Ru RU lRu e E ai o O ou aM am aH \n ka kaa ki kee ku koo kRu kRU klRu klRU ke kE kai ko kO kou kaM kam kaH \n ma maa mi mee mu moo mRu mRU mlRu mlRU me mE mai mo mO mou maM mam maH \n vikramaarkasiMhaasanakathaa vikramaar^kasiMhaasanakathaa  vikramaarkasim^haasanakathaa';
+      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya tatO&rghyE pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n a aa i ee u oo Ru RU lRu e E ai o O ou aM am aH \n ka kaa ki kee ku koo kRu kRU klRu klRU ke kE kai ko kO kou kaM kam kaH \n ma maa mi mee mu moo mRu mRU mlRu mlRU me mE mai mo mO mou maM mam maH \n vikramaarkasiMhaasanakathaa vikramaar^kasiMhaasanakathaa  vikramaarkasim^haasanakathaa \n rAjkumAr rAj^kumAr rAj^^kumAr \n sAPTwEr sAPT^wEr sAPT^^wEr \n sUrya sUr^ya sUr^^ya';
 
     //sampleGenericPassage = "r^ga";
 
-    //sampleGenericPassage = "yArghya  r^ga";
+    //sampleGenericPassage = "yArghya  r^ga r^^ga sAPT^wEr "; // Bug with sAPT^wEr
 
     language = "Kannada";
 
@@ -685,17 +688,38 @@
     } else {
       //console.log("Length is ", updatedPart.length);
 
-      if (updatedPart.includes("\u005E")) {
+      if (updatedPart.includes(caret)) {
         // String contains ^
-        for (let i = 0; i < updatedPart.length - 2; ++i) {
-          let str;
-          if (updatedPart[i] === "\u005E") {
-            // Checking for ^
-            str = zwj + viraama;
-          } else {
-            str = consonants.get(updatedPart[i]);
+
+        // Check for multiple occurrences of ^
+        let numberCaret = (updatedPart.match(/\u005E/g) || []).length;
+        //console.log("NumberCaret = ", numberCaret, updatedPart.length);
+
+        if (numberCaret === 2) {
+          //console.log("NumberCaret2 = ", numberCaret, updatedPart.length);
+          for (let i = 0; i < updatedPart.length - 2; ++i) {
+            let str;
+            if (updatedPart[i] === caret) {
+              str = zwnj;
+              ++i;
+            } else {
+              str = consonants.get(updatedPart[i]) + viraama;
+              //console.log("elseiie", i);
+            }
+            result += str;
           }
-          result += str;
+        } else {
+          //console.log("NumberCaret1 = ", numberCaret, updatedPart.length);
+          for (let i = 0; i < updatedPart.length - 2; ++i) {
+            let str;
+            if (updatedPart[i] === caret) {
+              // Checking for ^
+              str = zwj + viraama;
+            } else {
+              str = consonants.get(updatedPart[i]);
+            }
+            result += str;
+          }
         }
       } else {
         // String does not contain ^
@@ -703,9 +727,11 @@
           result += consonants.get(updatedPart[i]) + viraama;
         }
       }
+      //console.log("Resullll is ", result);
 
       if (updatedPart[updatedPart.length - 1] === "a") {
         result += consonants.get(updatedPart[updatedPart.length - 2]);
+        //console.log("comingggg", consonants.get(updatedPart[updatedPart.length - 2]));
       } else {
         result +=
           consonants.get(updatedPart[updatedPart.length - 2]) +
