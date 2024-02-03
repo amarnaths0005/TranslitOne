@@ -52,6 +52,7 @@ function setupKannadaMaps() {
   kannadaConsonants.set("d", "\u0CA6");
   kannadaConsonants.set("\xd6", "\u0CA7"); // dh
   kannadaConsonants.set("n", "\u0CA8");
+  kannadaConsonants.set("\xdf", "\u0CDD"); // Nakaara Pollu
   //kannadaConsonants.set("[", "\u0CA8");
 
   kannadaConsonants.set("p", "\u0CAA");
@@ -63,9 +64,11 @@ function setupKannadaMaps() {
 
   kannadaConsonants.set("y", "\u0CAF");
   kannadaConsonants.set("r", "\u0CB0");
-  kannadaConsonants.set("x", "\u0CB1");
+  kannadaConsonants.set("x", "\u0CB1"); // Kannada RRA
+  kannadaConsonants.set("Rx", "\u0CB1"); // Kannada RRA
   kannadaConsonants.set("l", "\u0CB2");
   kannadaConsonants.set("L", "\u0CB3");
+  kannadaConsonants.set("\xde", "\u0CDE"); // Kannada LLLa
   kannadaConsonants.set("v", "\u0CB5");
   kannadaConsonants.set("w", "\u0CB5");
   kannadaConsonants.set("S", "\u0CB6");
