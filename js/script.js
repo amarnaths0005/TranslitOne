@@ -5,6 +5,7 @@
 // Further updated January 2024.
 // Included Zero width joiner with ^ character.
 // Included Zero width non joiner with ^^ characters. 31 Jan 2024
+// Included RRA, LLLa and Pollu characters in Kannada, 3 Feb 2024
 // TODO: To fix issues in Assamese, Bengali and Malayalam caret ^ handling
 
 (function () {
@@ -82,6 +83,9 @@
   const regex29 = /~M/g;
   const regex30 = /rx/g;
   const regex31 = /~n/g; // For Gurmukhi Addak
+  const regex32 = /Lx/g;
+  const regex33 = /Rx/g;
+  const regex34 = /Zx/g;
 
   let caret = "\u005E";
   const zwj = "\u200D"; // zero width joiner -> https://en.wikipedia.org/wiki/Zero-width_joiner
@@ -103,7 +107,7 @@
     doubleDanda = devanagariDoubleDanda;
 
     sampleGenericPassage =
-      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga \n cha Cha ja Ja ~ja \n Ta Tha Da Dha Na \n ta tha da dha na \n pa pha ba bha ma \n ya ra la va sha Sha sa ha La \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya tatO&rghyE pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n a aa i ee u oo Ru RU lRu e E ai o O ou aM am aH \n ka kaa ki kee ku koo kRu kRU klRu klRU ke kE kai ko kO kou kaM kam kaH \n ma maa mi mee mu moo mRu mRU mlRu mlRU me mE mai mo mO mou maM mam maH \n vikramaarkasiMhaasanakathaa vikramaar^kasiMhaasanakathaa  vikramaarkasim^haasanakathaa \n rAjkumAr rAj^kumAr rAj^^kumAr \n sAPTwEr sAPT^wEr sAPT^^wEr \n sUrya sUr^ya sUr^^ya';
+      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga    cha Cha ja Ja ~ja    Ta Tha Da Dha Na    ta tha da dha na Zxa    pa pha ba bha ma \n ya ra rxa la va sha Sha sa ha La Lxa \n rxa rxaa rxi rxee rxu rxoo rxe rxE rxai rxo rxO rxou \n Lxa Lxaa Lxi Lxee Lxu Lxoo Lxe LxE Lxai Lxo LxO Lxou \n maar^kaLxitti~ggaL madinirxainda paarxkaDaluL payattuyinrxa puLLiZxavaay keeNDaanai \n madiniRxainda paaRxkaDaluL payattuyinRxa \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya tatO&rghyE pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n a aa i ee u oo Ru RU lRu e E ai o O ou aM am aH \n ka kaa ki kee ku koo kRu kRU klRu klRU ke kE kai ko kO kou kaM kam kaH \n ma maa mi mee mu moo mRu mRU mlRu mlRU me mE mai mo mO mou maM mam maH \n vikramaarkasiMhaasanakathaa vikramaar^kasiMhaasanakathaa  vikramaarkasim^haasanakathaa \n rAjkumAr rAj^kumAr rAj^^kumAr \n sAPTwEr sAPT^wEr sAPT^^wEr \n sUrya sUr^ya sUr^^ya';
 
     //sampleGenericPassage = "r^ga";
 
@@ -781,6 +785,9 @@
     updatedPart = updatedPart.replace(regex28, "z");
     updatedPart = updatedPart.replace(regex29, "\xdc");
     updatedPart = updatedPart.replace(regex30, "x");
+    updatedPart = updatedPart.replace(regex33, "x");
+    updatedPart = updatedPart.replace(regex32, "\xde");
+    updatedPart = updatedPart.replace(regex34, "\xdf");
 
     //console.log("Length of updated part ", updatedPart.length);
 
