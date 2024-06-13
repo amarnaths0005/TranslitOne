@@ -6,6 +6,7 @@
 // Included Zero width joiner with ^ character.
 // Included Zero width non joiner with ^^ characters. 31 Jan 2024
 // Included RRA, LLLa and Pollu characters in Kannada, 3 Feb 2024
+// Updated to fix words like paaraar^^thyam, 14 June 2024
 // TODO: To fix issues in Assamese, Bengali and Malayalam caret ^ handling
 
 (function () {
@@ -107,11 +108,16 @@
     doubleDanda = devanagariDoubleDanda;
 
     sampleGenericPassage =
-      ' namaskAra suprabhAta shubhadina shubharaatri \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga    cha Cha ja Ja ~ja    Ta Tha Da Dha Na    ta tha da dha na Zxa    pa pha ba bha ma \n ya ra rxa la va sha Sha sa ha La Lxa \n rxa rxaa rxi rxee rxu rxoo rxe rxE rxai rxo rxO rxou \n Lxa Lxaa Lxi Lxee Lxu Lxoo Lxe LxE Lxai Lxo LxO Lxou \n maar^kaLxitti~ggaL madinirxainda paarxkaDaluL payattuyinrxa puLLiZxavaay keeNDaanai \n madiniRxainda paaRxkaDaluL payattuyinRxa \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya tatO&rghyE pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n a aa i ee u oo Ru RU lRu e E ai o O ou aM am aH \n ka kaa ki kee ku koo kRu kRU klRu klRU ke kE kai ko kO kou kaM kam kaH \n ma maa mi mee mu moo mRu mRU mlRu mlRU me mE mai mo mO mou maM mam maH \n vikramaarkasiMhaasanakathaa vikramaar^kasiMhaasanakathaa  vikramaarkasim^haasanakathaa \n rAjkumAr rAj^kumAr rAj^^kumAr \n sAPTwEr sAPT^wEr sAPT^^wEr \n sUrya sUr^ya sUr^^ya';
+      ' namaskAra suprabhAta shubhadina shubharaatri paaraar^thyam paaraar^thyaM \n pitRUn shreekRuShNakarNaamRutaM123 1 2 3 5.676 980 \n ka kha ga gha ~ga    cha Cha ja Ja ~ja    Ta Tha Da Dha Na    ta tha da dha na Zxa    pa pha ba bha ma \n ya ra rxa la va sha Sha sa ha La Lxa \n rxa rxaa rxi rxee rxu rxoo rxe rxE rxai rxo rxO rxou \n Lxa Lxaa Lxi Lxee Lxu Lxoo Lxe LxE Lxai Lxo LxO Lxou \n maar^kaLxitti~ggaL madinirxainda paarxkaDaluL payattuyinrxa puLLiZxavaay keeNDaanai \n madiniRxainda paaRxkaDaluL payattuyinRxa \n . , ! @ # $ % ^ ( ) < > { } [ ] / " ? | = - _ ` ~ + \n ba! baa@ bi# bee$ bu% boo( \n tatO&rghya tatO&rghyE pitRu pitRUNaaM \n prahRuShTa vadanO rAjA tatO&rghyamupahArayat | \n sa rAj~jaH pratigRuhyArghyaM shaastra dRuShTEna karmaNaa || \n a aa i ee u oo Ru RU lRu e E ai o O ou aM am aH \n ka kaa ki kee ku koo kRu kRU klRu klRU ke kE kai ko kO kou kaM kam kaH \n ma maa mi mee mu moo mRu mRU mlRu mlRU me mE mai mo mO mou maM mam maH \n vikramaarkasiMhaasanakathaa vikramaar^kasiMhaasanakathaa  vikramaarkasim^haasanakathaa vikramaarkasim^^haasanakathaa \n rAjkumAr rAj^kumAr rAj^^kumAr \n sAPTwEr sAPT^wEr sAPT^^wEr \n sUrya sUr^ya sUr^^ya';
 
     //sampleGenericPassage = "r^ga";
 
     //sampleGenericPassage = "yArghya  r^ga r^^ga sAPT^wEr "; // Bug with sAPT^wEr
+
+    //sampleGenericPassage =
+    //  "r^thya r^thyu r^ku T^wEr pT^wEr TwEr sAPT^wEr sAPT^^wEr"; // "paaraar^thyam";
+
+    //sampleGenericPassage = "pT^wEr";
 
     language = "Kannada";
 
@@ -641,7 +647,7 @@
   }
 
   function handlePartOfLengthGreaterThan3(updatedPart, result) {
-    //console.log("Coming here Part 4", updatedPart);
+    console.log("Coming here Part 4", updatedPart);
     if (
       updatedPart[0] === "M" ||
       updatedPart[0] === "&" ||
@@ -690,7 +696,7 @@
         }
       }
     } else {
-      //console.log("Length is ", updatedPart.length);
+      console.log("Length is ", updatedPart.length);
 
       if (updatedPart.includes(caret)) {
         // String contains ^
@@ -713,17 +719,48 @@
             result += str;
           }
         } else {
-          //console.log("NumberCaret1 = ", numberCaret, updatedPart.length);
-          for (let i = 0; i < updatedPart.length - 2; ++i) {
-            let str;
-            if (updatedPart[i] === caret) {
-              // Checking for ^
-              str = zwj + viraama;
-            } else {
-              str = consonants.get(updatedPart[i]);
+          // numberCaret = 1
+          let indexCaret = updatedPart.indexOf(caret);
+          console.log(
+            "NumberCaret1 = ",
+            numberCaret,
+            updatedPart.length,
+            indexCaret
+          );
+          if (indexCaret === 1) {
+            for (let i = 0; i < updatedPart.length - 2; ++i) {
+              let str;
+              if (updatedPart[i] === caret) {
+                // Checking for ^
+                str = zwj + viraama;
+              } else {
+                str = consonants.get(updatedPart[i]);
+              }
+              console.log("Str is ", i, updatedPart[i], str);
+              if (updatedPart.length > 4) {
+                if (i !== updatedPart.length - 3) {
+                  result += str;
+                } else {
+                  result += str + viraama;
+                }
+                console.log("If 4 ", result);
+              } else {
+                result += str;
+              }
             }
-            result += str;
+          } else {
+            // indexCaret > 1
+            for (let i = 0; i <= indexCaret - 1; ++i) {
+              let str;
+              str = consonants.get(updatedPart[i]) + viraama;
+              result += str;
+              console.log("Str34 is ", str, result);
+            }
+            //result += zwj;
+            console.log("Index2 result is ", result);
+            for (let i = indexCaret + 1; i < updatedPart.length - 1; ++i) {}
           }
+          console.log("Result is ", result);
         }
       } else {
         // String does not contain ^
